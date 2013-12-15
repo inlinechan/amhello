@@ -1,0 +1,27 @@
+set test "amhello output"
+
+set topdir [file dirname $objdir]
+set bindir "$topdir/src"
+set top_libdir "$bindir/.libs"
+
+puts "## \$env(PATH) $env(PATH)"
+puts "## \$env(PWD) $env(PWD)"
+puts "## \$tool $tool"
+
+# from site.exp
+puts "## \$srcdir $srcdir"
+puts "## \$objdir $objdir"
+
+puts "## \$topdir $topdir"
+puts "## \$bindir $bindir"
+puts "## \$top_libdir $top_libdir"
+puts "## \$subdir $subdir"
+
+
+spawn $bindir/$tool
+expect -ex "Hello World!" {
+	# pass $test
+}
+expect -re "This is amhello \[0-9]\.\[0-9]" {
+	pass $test
+}
